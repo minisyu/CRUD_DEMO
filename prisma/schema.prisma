@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// @id - pk, @default(autoincrement()) - serial , String - varchar
+// create table user (
+//   id serial primary key
+// );
+model User {
+  id        Int    @id @default(autoincrement())
+  username  String @unique @db.VarChar(20)
+  password  String @db.VarChar(100)
+  password2 String @default("") @db.VarChar(100)
+}
+
+model Phone {
+  id          Int    @id @default(autoincrement())
+  phoneNumber String @unique @db.Char(13)
+}
